@@ -1,0 +1,13 @@
+1.
+Model:
+Slot interface
+EmptySlot
+ExprSlot
+TextSlot
+
+Sheet
+
+Controller:
+SheetController
+EditorController
+
