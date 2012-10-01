@@ -7,18 +7,19 @@ import expr.ExprParser;
 
 public class SlotFactory {
 	private ExprParser exprParser;
-	private Environment env;
 	
-	public SlotFactory(ExprParser parser, Environment env){
+	public SlotFactory(ExprParser exprParser){
 		this.exprParser = exprParser;
-		this.env = env;
 	}
 
-	public Slot build(String slot) throws IOException {
-		if(slot.charAt(0) == '#'){
-			return new TextSlot(slot);
+	public Slot build(String slotString, Environment env) throws IOException {
+		Slot slot;
+		if(slotString.charAt(0) == '#'){
+			slot = new TextSlot(slotString.substring(1));
 		}else{
-			return new ExprSlot(exprParser.build(slot.substring(1)), env);
+			slot = new ExprSlot(exprParser.build(slotString), env);
 		}
+		System.out.println(slotString + ": " + slot);
+		return slot;
 	}
 }

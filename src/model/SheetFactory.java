@@ -11,13 +11,15 @@ public class SheetFactory {
 	}
 	public Sheet build(Scanner sc) throws IOException{
 		HashMap<String, Slot> slots = new HashMap<String,Slot>();
+		Sheet sheet = new Sheet(slots);
 		while(sc.hasNext()){
 			String line = sc.nextLine();
-			String[] matches = line.split("=",1);
+			String[] matches = line.split("=",2);
 			if(matches.length == 2){
-				slots.put(matches[0],slotFactory.build(matches[1]));
+				slots.put(matches[0],slotFactory.build(matches[1],sheet));
 			}
 		}
-		return new Sheet(slots);
+		System.out.println(slots);
+		return sheet;
 	}
 }
