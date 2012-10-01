@@ -1,5 +1,5 @@
 package model;
 
-public interface Slot {
-	public String toString();
+public abstract class Slot {
+	public abstract double value() throws Exception;
 }

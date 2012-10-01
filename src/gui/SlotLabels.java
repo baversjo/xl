@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingConstants;
 
-import controller.ShetController;
+import controller.SheetController;
 
 public class SlotLabels extends GridPanel {
     private List<SlotLabel> labelList;
@@ -20,7 +20,7 @@ public class SlotLabels extends GridPanel {
         for (int row = 1; row <= rows; row++) {
             for (char ch = 'A'; ch < 'A' + cols; ch++) {
                 SlotLabel label = new SlotLabel();
-                ShetController sheetcont = new ShetController();
+                SheetController sheetcont = new SheetController();
                 
                 add(label);
                 labelList.add(label);
