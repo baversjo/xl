@@ -1,20 +1,25 @@
 package controller;
 
-import java.awt.event.ActionEvent;
+import gui.SlotLabel;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+
+import model.Sheet;
+
 public class SheetController implements MouseListener{
-	
-	public SheetController(){
-		
+	private Sheet sheet;
+
+	public SheetController(Sheet sheet){
+		this.sheet = sheet;
 	}
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		SlotLabel label = (SlotLabel) e.getSource();
+		sheet.setCurrent(label.position());
 	}
 
 	@Override
