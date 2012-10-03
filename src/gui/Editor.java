@@ -6,13 +6,15 @@ import java.util.Observer;
 
 import javax.swing.JTextField;
 
+import model.CurrentSlot;
+
 public class Editor extends JTextField implements Observer{
 	private CurrentSlot currentslot;
 	
     public Editor(CurrentSlot currentslot) {
         setBackground(Color.WHITE);
         this.currentslot = currentslot;
-        currentslot.addOberserver(this);
+        currentslot.addObserver(this);
     }
 
 	@Override

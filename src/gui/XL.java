@@ -30,16 +30,18 @@ public class XL extends JFrame implements Printable {
 	private SheetFactory sheetFactory;
 	private Sheet sheet;
 	private CurrentSlot currentslot;
+	private SlotFactory slotfactory;
 
     public XL(XL oldXL) {
-        this(oldXL.xlList, oldXL.counter, oldXL.sheetFactory);
+        this(oldXL.xlList, oldXL.counter, oldXL.sheetFactory, oldXL.slotfactory);
     }
 
-    public XL(XLList xlList, XLCounter counter, SheetFactory sheetFactory) {
+    public XL(XLList xlList, XLCounter counter, SheetFactory sheetFactory, SlotFactory slotfactory) {
         super("Untitled-" + counter);
         this.xlList = xlList;
         this.counter = counter;
         this.sheetFactory = sheetFactory;
+        this.slotfactory = slotfactory;
         xlList.add(this);
         counter.increment();
         try {
@@ -50,7 +52,7 @@ public class XL extends JFrame implements Printable {
 		}
         JPanel statusPanel = new StatusPanel(statusLabel, sheet);
         JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet);
-        currentslot = new CurrentSlot();
+        currentslot = new CurrentSlot(slotfactory, sheet);
         Editor editor = new Editor(currentslot);
         EditorController editorcontroller = new EditorController(editor, currentslot);
         editor.addKeyListener(editorcontroller);
@@ -79,7 +81,8 @@ public class XL extends JFrame implements Printable {
     }
 
     public static void main(String[] args) {
-    	SheetFactory sf = new SheetFactory(new SlotFactory(new ExprParser()));
-        new XL(new XLList(), new XLCounter(), sf);
+    	SlotFactory slotfactory = new SlotFactory(new ExprParser()); 
+    	SheetFactory sf = new SheetFactory(slotfactory);
+        new XL(new XLList(), new XLCounter(), sf, slotfactory);
     }
 }
