@@ -20,7 +20,6 @@ import controller.EditorController;
 import model.Sheet;
 import model.SheetFactory;
 import model.SlotFactory;
-import model.CurrentSlot;
 
 public class XL extends JFrame implements Printable {
     private static final int ROWS = 10, COLUMNS = 8;
@@ -29,7 +28,6 @@ public class XL extends JFrame implements Printable {
     private XLList xlList;
 	private SheetFactory sheetFactory;
 	private Sheet sheet;
-	private CurrentSlot currentslot;
 	private SlotFactory slotfactory;
 
     public XL(XL oldXL) {
@@ -52,9 +50,8 @@ public class XL extends JFrame implements Printable {
 		}
         JPanel statusPanel = new StatusPanel(statusLabel, sheet);
         JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet);
-        currentslot = new CurrentSlot(slotfactory, sheet);
-        Editor editor = new Editor(currentslot);
-        EditorController editorcontroller = new EditorController(editor, currentslot);
+        Editor editor = new Editor(sheet);
+        EditorController editorcontroller = new EditorController(editor, sheet);
         editor.addKeyListener(editorcontroller);
         add(NORTH, statusPanel);
         add(CENTER, editor);

@@ -6,20 +6,20 @@ import java.util.Observer;
 
 import javax.swing.JTextField;
 
-import model.CurrentSlot;
+
+import model.Sheet;
 
 public class Editor extends JTextField implements Observer{
-	private CurrentSlot currentslot;
+	private Sheet sheet;
 	
-    public Editor(CurrentSlot currentslot) {
+    public Editor(Sheet sheet) {
         setBackground(Color.WHITE);
-        this.currentslot = currentslot;
-        currentslot.addObserver(this);
+        this.sheet = sheet;
+        sheet.addObserver(this);
     }
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		setText(sheet.currentValue());
 	}
 }

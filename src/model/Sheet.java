@@ -23,7 +23,7 @@ public class Sheet extends Observable implements Environment {
 	public double value(String name) {
 		double value = 0;
 		try {
-			value = slots.get(name).value();
+			value = getSlot(location).value();
 		} catch (Exception e) {
 			e.printStackTrace(); //TODO: correct error handling.
 			System.exit(1);
@@ -56,9 +56,14 @@ public class Sheet extends Observable implements Environment {
 	}
 	
 	private void updateSlot(){
-		slot = slots.get(location);
+		slot = getSlot(location);
+	}
+	
+	private Slot getSlot(String location){
+		Slot slot = slots.get(location);
 		if(slot == null){
 			slot = EmptySlot.instance();
 		}
+		return slot;
 	}
 }

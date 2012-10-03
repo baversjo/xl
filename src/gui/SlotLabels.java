@@ -16,17 +16,14 @@ import model.Sheet;
 
 import controller.SheetController;
 
-public class SlotLabels extends GridPanel implements Observer{
+public class SlotLabels extends GridPanel{
     private List<SlotLabel> labelList;
-    private Sheet sheet;
     private int cols;
 
     public SlotLabels(int rows, int cols, Sheet sheet) {
         super(rows + 1, cols);
         this.cols = cols;
-        this.sheet = sheet;
         labelList = new LinkedList<SlotLabel>();
-        sheet.addObserver(this);
         
         for (char ch = 'A'; ch < 'A' + cols; ch++) {
             add(new ColoredLabel(Character.toString(ch), Color.LIGHT_GRAY,
@@ -36,8 +33,9 @@ public class SlotLabels extends GridPanel implements Observer{
         for (int row = 1; row <= rows; row++) {
             for (int col = 0; col < cols; col++) {
             	String position = locationString(row,col);
-                SlotLabel label = new SlotLabel(sheet.get(position),position);
+                SlotLabel label = new SlotLabel(position,sheet);
                 label.addMouseListener(sheetcont);
+                sheet.addObserver(label);
                 add(label);
                 labelList.add(label);
             }
@@ -46,17 +44,6 @@ public class SlotLabels extends GridPanel implements Observer{
         firstLabel.setBackground(Color.YELLOW);
         
     }
-
-	@Override
-	public void update(Observable o, Object arg) {
-		Iterator<SlotLabel> itr = labelList.iterator();
-		int i=0;
-		while(itr.hasNext()){
-			SlotLabel label = itr.next();
-			label.update(sheet.get(locationString(i/cols,i%cols)));
-			i++;
-		}
-	}
 
 	public String position(SlotLabel label){
 		int index = labelList.indexOf(label);

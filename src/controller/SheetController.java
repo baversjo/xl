@@ -11,19 +11,15 @@ import model.Sheet;
 
 public class SheetController implements MouseListener{
 	private Sheet sheet;
-	private SlotLabels view;
 
 	public SheetController(Sheet sheet, SlotLabels view){
 		this.sheet = sheet;
-		this.view = view;
-		sheet.addObserver(view);
 	}
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		SlotLabel label = (SlotLabel) e.getSource();
-		sheet.setCurrent(view.position(label));
+		SlotLabel label = (SlotLabel)e.getSource();
+		sheet.changeTo(label.toString());
 	}
 
 	@Override

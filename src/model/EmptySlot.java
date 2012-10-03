@@ -5,10 +5,10 @@ public class EmptySlot extends Slot{
 	     
 	 protected static EmptySlot instance(){
 		 if(singleton == null){
-		         return singleton;
+			 return (singleton = new EmptySlot());
 		 }
 		 else{
-		         return (singleton = new EmptySlot());
+			 return singleton;
 		 }
 	 }
 	 @Override

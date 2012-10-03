@@ -6,15 +6,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-import model.CurrentSlot;
+import model.Sheet;
 
 public class EditorController implements KeyListener{
 	private Editor editor;
-	private CurrentSlot currentslot;
+	private Sheet sheet;
 	
-	public EditorController(Editor editor, CurrentSlot currentslot){
+	public EditorController(Editor editor, Sheet sheet){
 		this.editor = editor;
-		this.currentslot = currentslot;
+		this.sheet = sheet;
 		
 	}
 
@@ -23,24 +23,20 @@ public class EditorController implements KeyListener{
 		if(e.getKeyChar() == KeyEvent.VK_ENTER) { 
 			String text = editor.getText();
 			try {
-				currentslot.setValue(text);
+				sheet.setValue(text);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+				System.exit(4);
 				e1.printStackTrace();
 			}
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void keyReleased(KeyEvent e) {		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

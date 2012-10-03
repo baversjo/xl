@@ -4,16 +4,30 @@ import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.Slot;
+import model.Sheet;
 
-public class SlotLabel extends ColoredLabel {
-    public SlotLabel(Slot slot, String position) {
+public class SlotLabel extends ColoredLabel implements Observer{
+	private String position;
+	private Sheet sheet;
+    public SlotLabel(String position, Sheet sheet) {
         super("", Color.WHITE, RIGHT);
-        update(slot);
+        this.position = position;
+        this.sheet = sheet;
+        update();
     }
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		update();
+		
+	}
 	
-	public void update(Slot slot){
-		setText(slot.toString());
+	public String toString(){
+		return position;
+	}
+	
+	private void update(){
+		setText(String.valueOf(sheet.value(position)));
 	}
     
 }
