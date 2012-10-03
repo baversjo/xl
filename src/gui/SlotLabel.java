@@ -8,18 +8,17 @@ import model.Slot;
 
 public class SlotLabel extends ColoredLabel implements Observer  {
 	private Slot slot;
-	private String position;
-    public SlotLabel(Slot slot, String position) {
-        super(slot.toString(), Color.WHITE, RIGHT);
-        this.slot = slot;
-        this.position = position;
+    public SlotLabel(Slot slot) {
+        super("", Color.WHITE, RIGHT);
+        update();
     }
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		setText(slot.toString());
+		update();
 	}
-	public String position() {
-		return position;
+
+	private void update(){
+		setText(slot.value());
 	}
     
 }

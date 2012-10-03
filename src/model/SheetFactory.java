@@ -10,16 +10,19 @@ public class SheetFactory {
 		this.slotFactory = slotFactory;
 	}
 	public Sheet build(Scanner sc) throws IOException{
-		HashMap<String, Slot> slots = new HashMap<String,Slot>();
-		Sheet sheet = new Sheet(slots);
+		HashMap<String, SlotValue> slotValues = new HashMap<String,SlotValue>();
+		Sheet sheet = new Sheet(slotValues);
 		while(sc.hasNext()){
 			String line = sc.nextLine();
 			String[] matches = line.split("=",2);
 			if(matches.length == 2){
-				slots.put(matches[0],slotFactory.build(matches[1],sheet));
+				slotValues.put(matches[0],slotFactory.build(matches[1],sheet));
 			}
 		}
-		System.out.println(slots);
+		System.out.println(slotValues);
 		return sheet;
+	}
+	public Sheet buildEmpty() throws IOException {
+		return build(new Scanner(""));
 	}
 }

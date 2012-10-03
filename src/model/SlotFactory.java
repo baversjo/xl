@@ -12,14 +12,14 @@ public class SlotFactory {
 		this.exprParser = exprParser;
 	}
 
-	public Slot build(String slotString, Environment env) throws IOException {
-		Slot slot;
+	public SlotValue build(String slotString, Environment env) throws IOException {
+		SlotValue slotValue;
 		if(slotString.charAt(0) == '#'){
-			slot = new TextSlot(slotString.substring(1));
+			slotValue = new TextValue(slotString.substring(1));
 		}else{
-			slot = new ExprSlot(exprParser.build(slotString), env);
+			slotValue = new ExprValue(exprParser.build(slotString), env);
 		}
-		System.out.println(slotString + ": " + slot);
-		return slot;
+		System.out.println(slotString + ": " + slotValue);
+		return slotValue;
 	}
 }

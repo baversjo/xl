@@ -24,7 +24,7 @@ public class SlotLabels extends GridPanel {
         SheetController sheetcont = new SheetController(sheet);
         for (int row = 1; row <= rows; row++) {
             for (char ch = 'A'; ch < 'A' + cols; ch++) {
-            	String position = String.valueOf(ch) + String.valueOf(row);
+            	Location loc = new Location(ch,row);
                 SlotLabel label = new SlotLabel(sheet.get(position),position);
                 label.addMouseListener(sheetcont);
                 add(label);

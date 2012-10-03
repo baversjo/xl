@@ -1,9 +1,9 @@
 package model;
 
-public class TextSlot extends Slot {
+public class TextValue extends SlotValue {
 	private String text;
 	
-	public TextSlot(String text){
+	public TextValue(String text){
 		this.text = text;
 	}
 	

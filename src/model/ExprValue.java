@@ -3,12 +3,12 @@ package model;
 import expr.Environment;
 import expr.Expr;
 
-public class ExprSlot extends Slot {
+public class ExprValue extends SlotValue {
 	public static int precision = 2;
 	private Expr expr;
 	private Environment env;
 	
-	public ExprSlot(Expr expr, Environment env){
+	public ExprValue(Expr expr, Environment env){
 		this.expr = expr;
 		this.env = env;
 	}
