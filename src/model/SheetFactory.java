@@ -22,4 +22,7 @@ public class SheetFactory {
 		System.out.println(slots);
 		return sheet;
 	}
+	public Sheet buildEmpty() throws IOException {
+		return build(new Scanner(""));
+	}
 }

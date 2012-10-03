@@ -10,9 +10,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
+import java.io.IOException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import model.Sheet;
 import model.SheetFactory;
 import model.SlotFactory;
 
@@ -22,6 +25,7 @@ public class XL extends JFrame implements Printable {
     private StatusLabel statusLabel = new StatusLabel();
     private XLList xlList;
 	private SheetFactory sheetFactory;
+	private Sheet sheet;
 
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter, oldXL.sheetFactory);
@@ -34,8 +38,14 @@ public class XL extends JFrame implements Printable {
         this.sheetFactory = sheetFactory;
         xlList.add(this);
         counter.increment();
-        JPanel statusPanel = new StatusPanel(statusLabel);
-        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS);
+        try {
+			sheet = sheetFactory.buildEmpty();
+		} catch (IOException e) {
+			e.printStackTrace(); //TODO: proper error handling
+			System.exit(3);
+		}
+        JPanel statusPanel = new StatusPanel(statusLabel, sheet);
+        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet);
         Editor editor = new Editor();
         add(NORTH, statusPanel);
         add(CENTER, editor);
