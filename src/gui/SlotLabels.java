@@ -32,7 +32,7 @@ public class SlotLabels extends GridPanel implements Observer{
             add(new ColoredLabel(Character.toString(ch), Color.LIGHT_GRAY,
                     SwingConstants.CENTER));
         }
-        SheetController sheetcont = new SheetController(sheet);
+        SheetController sheetcont = new SheetController(sheet,this);
         for (int row = 1; row <= rows; row++) {
             for (int col = 0; col < cols; col++) {
             	String position = locationString(row,col);
@@ -60,5 +60,9 @@ public class SlotLabels extends GridPanel implements Observer{
 	
 	private String locationString(int row, int col){
 		return String.valueOf('A' + col) +  String.valueOf(col);
+	}
+	public String position(SlotLabel label){
+		int index = labelList.indexOf(label);
+		return locationString(index/cols,index%cols);
 	}
 }

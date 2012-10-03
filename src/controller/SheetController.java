@@ -22,7 +22,7 @@ public class SheetController implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		SlotLabel label = (SlotLabel) e.getSource();
-		sheet.setCurrent(label.position());
+		sheet.setCurrent(view.position(label));
 	}
 
 	@Override
