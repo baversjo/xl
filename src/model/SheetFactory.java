@@ -11,7 +11,7 @@ public class SheetFactory {
 	}
 	public Sheet build(Scanner sc) throws IOException{
 		HashMap<String, Slot> slots = new HashMap<String,Slot>();
-		Sheet sheet = new Sheet(slots);
+		Sheet sheet = new Sheet(slots, slotFactory);
 		while(sc.hasNext()){
 			String line = sc.nextLine();
 			String[] matches = line.split("=",2);

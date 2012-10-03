@@ -8,11 +8,11 @@ public class TextSlot extends Slot {
 	}
 	
 	public String toString(){
-		return text.toString();
+		return "#" + text.toString();
 	}
 
 	@Override
 	public double value() throws Exception {
-		throw new Exception("Du kan inte göra så");
+		throw new Exception("Impossible");
 	}
 }

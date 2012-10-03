@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Observable;
 
@@ -7,11 +8,15 @@ import expr.Environment;
 
 public class Sheet extends Observable implements Environment {
 	private Map<String, Slot> slots;
-	private Slot current;
 	private String location;
+	private Slot slot;
+	private SlotFactory sf;
 	
-	public Sheet(Map<String, Slot> slots){
+	public Sheet(Map<String, Slot> slots, SlotFactory sf){
 		this.slots = slots;
+		this.sf = sf;
+		updateSlot();
+		changed();
 	}
 
 	@Override
@@ -25,23 +30,35 @@ public class Sheet extends Observable implements Environment {
 		}
 		return value;
 	}
-
-	public void setCurrent(String name) {
-		current = slots.get(name);	
-	}
-
-	public Slot getCurrent() {
-		return current;
-	}
-
-	public Slot get(String position) {
-		return slots.get(position);	
-	}
-
-	public String currentLocation() {
-		return location;
-	}
-		
-
 	
+	public void setValue(String value) throws IOException{
+		slot = sf.build(value, this);
+		changed();
+	}
+	
+	public String currentValue(){
+		return this.slot.toString();
+	}
+	
+	public String currentLocation(){
+		return this.location;
+	}
+	
+	public void changeTo(String location){
+		this.location = location;
+		updateSlot();
+		changed();
+	}
+	
+	private void changed(){
+		setChanged();
+		notifyObservers();
+	}
+	
+	private void updateSlot(){
+		slot = slots.get(location);
+		if(slot == null){
+			slot = EmptySlot.instance();
+		}
+	}
 }
