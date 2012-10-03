@@ -19,7 +19,6 @@ public class SlotFactory {
 		}else{
 			slot = new ExprSlot(exprParser.build(slotString), env);
 		}
-		System.out.println(slotString + ": " + slot);
 		return slot;
 	}
 }

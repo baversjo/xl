@@ -15,6 +15,6 @@ class NewMenuItem extends JMenuItem implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event) {
-        new XL(xl);
+        //new XL(xl);
     }
 }

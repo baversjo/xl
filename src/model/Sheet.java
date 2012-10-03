@@ -3,6 +3,8 @@ package model;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import expr.Environment;
 
@@ -57,7 +59,11 @@ public class Sheet extends Observable implements Environment {
 		changed();
 	}
 	
-	private void changed(){
+	public Set<Entry<String, Slot>> entrySet(){
+		return slots.entrySet();
+	}
+	
+	public void changed(){
 		setChanged();
 		notifyObservers();
 	}

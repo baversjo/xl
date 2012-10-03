@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,7 +19,7 @@ import javax.swing.JPanel;
 import controller.EditorController;
 
 import model.Sheet;
-import model.SheetFactory;
+import model.Slot;
 import model.SlotFactory;
 
 public class XL extends JFrame implements Printable {
@@ -26,28 +27,20 @@ public class XL extends JFrame implements Printable {
     private XLCounter counter;
     private StatusLabel statusLabel = new StatusLabel();
     private XLList xlList;
-	private SheetFactory sheetFactory;
 	private Sheet sheet;
-	private SlotFactory slotfactory;
+	private SlotFactory slotFactory;
 
-    public XL(XL oldXL) {
-        this(oldXL.xlList, oldXL.counter, oldXL.sheetFactory, oldXL.slotfactory);
+    public XL(XL oldXL, Sheet sheet) {
+        this(oldXL.xlList, oldXL.counter, oldXL.slotFactory, sheet);
     }
 
-    public XL(XLList xlList, XLCounter counter, SheetFactory sheetFactory, SlotFactory slotfactory) {
+    public XL(XLList xlList, XLCounter counter, SlotFactory slotfactory, Sheet sheet) {
         super("Untitled-" + counter);
         this.xlList = xlList;
         this.counter = counter;
-        this.sheetFactory = sheetFactory;
-        this.slotfactory = slotfactory;
+        this.slotFactory = slotfactory;
         xlList.add(this);
         counter.increment();
-        try {
-			sheet = sheetFactory.buildEmpty();
-		} catch (IOException e) {
-			e.printStackTrace(); //TODO: proper error handling
-			System.exit(3);
-		}
         JPanel statusPanel = new StatusPanel(statusLabel, sheet);
         JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet);
         Editor editor = new Editor(sheet);
@@ -56,11 +49,12 @@ public class XL extends JFrame implements Printable {
         add(NORTH, statusPanel);
         add(CENTER, editor);
         add(SOUTH, sheetPanel);
-        setJMenuBar(new XLMenuBar(this, xlList, statusLabel, sheetFactory));
+        setJMenuBar(new XLMenuBar(this, xlList, statusLabel, slotFactory, sheet));
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+        sheet.changed();
     }
 
     public int print(Graphics g, PageFormat pageFormat, int page) {
@@ -78,8 +72,9 @@ public class XL extends JFrame implements Printable {
     }
 
     public static void main(String[] args) {
-    	SlotFactory slotfactory = new SlotFactory(new ExprParser()); 
-    	SheetFactory sf = new SheetFactory(slotfactory);
-        new XL(new XLList(), new XLCounter(), sf, slotfactory);
+    	SlotFactory slotFactory = new SlotFactory(new ExprParser()); 
+        HashMap<String, Slot> slots = new HashMap<String,Slot>(); //TODO: refactor
+    	Sheet sheet = new Sheet(slots, slotFactory);
+        new XL(new XLList(), new XLCounter(), slotFactory, sheet);
     }
 }
