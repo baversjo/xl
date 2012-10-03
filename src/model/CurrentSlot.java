@@ -12,6 +12,7 @@ public class CurrentSlot extends Observable{
 	public CurrentSlot(SlotFactory sf, Sheet sheet){
 		this.sf = sf;
 		this.sheet = sheet;
+		this.slot = EmptySlot.instance();
 	}
 	
 	public void setValue(String value) throws IOException{
