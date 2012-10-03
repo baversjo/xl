@@ -15,9 +15,12 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import controller.EditorController;
+
 import model.Sheet;
 import model.SheetFactory;
 import model.SlotFactory;
+import model.CurrentSlot;
 
 public class XL extends JFrame implements Printable {
     private static final int ROWS = 10, COLUMNS = 8;
@@ -26,6 +29,7 @@ public class XL extends JFrame implements Printable {
     private XLList xlList;
 	private SheetFactory sheetFactory;
 	private Sheet sheet;
+	private CurrentSlot currentslot;
 
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter, oldXL.sheetFactory);
@@ -46,7 +50,10 @@ public class XL extends JFrame implements Printable {
 		}
         JPanel statusPanel = new StatusPanel(statusLabel, sheet);
         JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet);
-        Editor editor = new Editor();
+        currentslot = new CurrentSlot();
+        Editor editor = new Editor(currentslot);
+        EditorController editorcontroller = new EditorController(editor, currentslot);
+        editor.addKeyListener(editorcontroller);
         add(NORTH, statusPanel);
         add(CENTER, editor);
         add(SOUTH, sheetPanel);
