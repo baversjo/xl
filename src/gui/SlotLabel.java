@@ -10,10 +10,9 @@ public class SlotLabel extends ColoredLabel implements Observer{
 	private String position;
 	private Sheet sheet;
     public SlotLabel(String position, Sheet sheet) {
-        super("", Color.WHITE, RIGHT);
+        super("                   ", Color.WHITE, RIGHT);
         this.position = position;
         this.sheet = sheet;
-        update();
     }
 
 	@Override
@@ -27,7 +26,7 @@ public class SlotLabel extends ColoredLabel implements Observer{
 	}
 	
 	private void update(){
-		setText(String.valueOf(sheet.value(position)));
+		setText(sheet.displayValue(position));
 	}
     
 }

@@ -33,6 +33,7 @@ public class Sheet extends Observable implements Environment {
 	
 	public void setValue(String value) throws IOException{
 		slot = sf.build(value, this);
+		slots.put(location, slot);
 		changed();
 	}
 	
@@ -44,10 +45,16 @@ public class Sheet extends Observable implements Environment {
 		return this.location;
 	}
 	
+	
+	public String displayValue(String location){
+		return getSlot(location).toString();
+	}
+	
 	public void changeTo(String location){
 		this.location = location;
 		updateSlot();
 		changed();
+		System.out.println("changed to:" + location);
 	}
 	
 	private void changed(){

@@ -52,6 +52,6 @@ public class SlotLabels extends GridPanel{
 	
 	
 	private String locationString(int row, int col){
-		return String.valueOf('A' + col) +  String.valueOf(col);
+		return Character.toString((char) ('A' + col)) + String.valueOf(row);
 	}
 }
