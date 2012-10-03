@@ -1,6 +1,6 @@
 package model;
 
-public class TextSlot extends Slot {
+public class TextSlot implements Slot {
 	private String text;
 	
 	public TextSlot(String text){
@@ -14,5 +14,10 @@ public class TextSlot extends Slot {
 	@Override
 	public double value() throws Exception {
 		throw new Exception("Impossible");
+	}
+
+	@Override
+	public String diplayValue() {
+		return text;
 	}
 }

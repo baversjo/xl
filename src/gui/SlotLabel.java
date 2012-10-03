@@ -27,6 +27,11 @@ public class SlotLabel extends ColoredLabel implements Observer{
 	
 	private void update(){
 		setText(sheet.displayValue(position));
+		Color c = Color.white;
+		if(sheet.currentLocation().equals(position)){
+			c = Color.yellow;
+		}
+		setBackground(c);
 	}
     
 }

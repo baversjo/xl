@@ -15,6 +15,7 @@ public class Sheet extends Observable implements Environment {
 	public Sheet(Map<String, Slot> slots, SlotFactory sf){
 		this.slots = slots;
 		this.sf = sf;
+		this.location = "A1";
 		updateSlot();
 		changed();
 	}
@@ -47,14 +48,13 @@ public class Sheet extends Observable implements Environment {
 	
 	
 	public String displayValue(String location){
-		return getSlot(location).toString();
+		return getSlot(location).diplayValue();
 	}
 	
 	public void changeTo(String location){
 		this.location = location;
 		updateSlot();
 		changed();
-		System.out.println("changed to:" + location);
 	}
 	
 	private void changed(){

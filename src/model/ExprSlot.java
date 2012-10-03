@@ -3,7 +3,7 @@ package model;
 import expr.Environment;
 import expr.Expr;
 
-public class ExprSlot extends Slot {
+public class ExprSlot implements Slot {
 	public static int precision = 2;
 	private Expr expr;
 	private Environment env;
@@ -20,6 +20,11 @@ public class ExprSlot extends Slot {
 	@Override
 	public double value() {
 		return expr.value(this.env);
+	}
+
+	@Override
+	public String diplayValue() {
+		return String.valueOf(value()); //TODO: padding?
 	}
 
 }

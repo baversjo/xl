@@ -1,5 +1,6 @@
 package model;
 
-public abstract class Slot {
-	public abstract double value() throws Exception;
+public interface Slot {
+	public double value() throws Exception;
+	public String diplayValue();
 }
