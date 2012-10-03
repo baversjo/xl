@@ -16,6 +16,7 @@ public class SheetController implements MouseListener{
 	public SheetController(Sheet sheet, SlotLabels view){
 		this.sheet = sheet;
 		this.view = view;
+		sheet.addObserver(view);
 	}
 
 

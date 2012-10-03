@@ -57,12 +57,14 @@ public class SlotLabels extends GridPanel implements Observer{
 			i++;
 		}
 	}
-	
-	private String locationString(int row, int col){
-		return String.valueOf('A' + col) +  String.valueOf(col);
-	}
+
 	public String position(SlotLabel label){
 		int index = labelList.indexOf(label);
 		return locationString(index/cols,index%cols);
+	}
+	
+	
+	private String locationString(int row, int col){
+		return String.valueOf('A' + col) +  String.valueOf(col);
 	}
 }
