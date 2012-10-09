@@ -13,6 +13,7 @@ public class SlotLabel extends ColoredLabel implements Observer{
         super("                   ", Color.WHITE, RIGHT);
         this.position = position;
         this.sheet = sheet;
+        this.setHorizontalAlignment(LEFT);
     }
 
 	@Override
