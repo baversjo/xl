@@ -17,6 +17,7 @@ public class SlotLabel extends ColoredLabel implements Observer{
         this.sheet = sheet;
         this.currentSlot = currentSlot;
         currentSlot.addObserver(this);
+        this.setHorizontalAlignment(LEFT);
     }
 
 	@Override
