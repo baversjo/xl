@@ -1,17 +1,12 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.SwingConstants;
 
+import model.CurrentSlot;
 import model.Sheet;
 
 import controller.SheetController;
@@ -20,7 +15,7 @@ public class SlotLabels extends GridPanel{
     private List<SlotLabel> labelList;
     private int cols;
 
-    public SlotLabels(int rows, int cols, Sheet sheet) {
+    public SlotLabels(int rows, int cols, Sheet sheet, CurrentSlot currentSlot) {
         super(rows + 1, cols);
         this.cols = cols;
         labelList = new LinkedList<SlotLabel>();
@@ -29,11 +24,11 @@ public class SlotLabels extends GridPanel{
             add(new ColoredLabel(Character.toString(ch), Color.LIGHT_GRAY,
                     SwingConstants.CENTER));
         }
-        SheetController sheetcont = new SheetController(sheet,this);
+        SheetController sheetcont = new SheetController(sheet,this, currentSlot);
         for (int row = 1; row <= rows; row++) {
             for (int col = 0; col < cols; col++) {
             	String position = locationString(row,col);
-                SlotLabel label = new SlotLabel(position,sheet);
+                SlotLabel label = new SlotLabel(position, sheet , currentSlot);
                 label.addMouseListener(sheetcont);
                 sheet.addObserver(label);
                 add(label);

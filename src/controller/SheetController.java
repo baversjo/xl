@@ -7,19 +7,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
+import model.CurrentSlot;
 import model.Sheet;
 
 public class SheetController implements MouseListener{
 	private Sheet sheet;
+	private CurrentSlot currentSlot;
 
-	public SheetController(Sheet sheet, SlotLabels view){
+	public SheetController(Sheet sheet, SlotLabels view, CurrentSlot currentSlot){
 		this.sheet = sheet;
+		this.currentSlot = currentSlot;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		SlotLabel label = (SlotLabel)e.getSource();
-		sheet.changeTo(label.toString());
+		currentSlot.set(label.toString());
 	}
 
 	@Override

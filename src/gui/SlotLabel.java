@@ -4,15 +4,19 @@ import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.CurrentSlot;
 import model.Sheet;
 
 public class SlotLabel extends ColoredLabel implements Observer{
 	private String position;
 	private Sheet sheet;
-    public SlotLabel(String position, Sheet sheet) {
+	private CurrentSlot currentSlot;
+    public SlotLabel(String position, Sheet sheet, CurrentSlot currentSlot) {
         super("                   ", Color.WHITE, RIGHT);
         this.position = position;
         this.sheet = sheet;
+        this.currentSlot = currentSlot;
+        currentSlot.addObserver(this);
         this.setHorizontalAlignment(LEFT);
     }
 
@@ -29,7 +33,7 @@ public class SlotLabel extends ColoredLabel implements Observer{
 	private void update(){
 		setText(sheet.displayValue(position));
 		Color c = Color.white;
-		if(sheet.currentLocation().equals(position)){
+		if(currentSlot.location().equals(position)){
 			c = Color.yellow;
 		}
 		setBackground(c);
