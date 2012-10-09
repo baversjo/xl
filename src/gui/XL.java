@@ -54,7 +54,7 @@ public class XL extends JFrame implements Printable {
         add(SOUTH, sheetPanel);
         setJMenuBar(new XLMenuBar(this, xlList, statusLabel, slotFactory, sheet));
         pack();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(XL.DISPOSE_ON_CLOSE);
         setResizable(false);
         setVisible(true);
         sheet.changed();
