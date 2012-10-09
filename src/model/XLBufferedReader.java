@@ -17,7 +17,7 @@ public class XLBufferedReader extends BufferedReader {
             while (ready()) {
                 String string = readLine();
                 int i = string.indexOf('=');
-                map.put(string.substring(0, i-1),slotFactory.build(string.substring(i+1),sheet));
+                map.put(string.substring(0, i),slotFactory.build(string.substring(i+1),sheet));
             }
         } catch (Exception e) {
             throw new XLException(e.getMessage());
