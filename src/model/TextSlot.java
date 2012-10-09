@@ -1,5 +1,7 @@
 package model;
 
+import util.XLException;
+
 public class TextSlot implements Slot {
 	private String text;
 	
@@ -12,8 +14,8 @@ public class TextSlot implements Slot {
 	}
 
 	@Override
-	public double value() throws Exception {
-		throw new Exception("Impossible");
+	public double value() {
+		throw new XLException("Trying to reference value of text slot.");
 	}
 
 	@Override

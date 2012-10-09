@@ -3,6 +3,8 @@ package model;
 import java.io.IOException;
 import java.util.Observable;
 
+import util.XLException;
+
 public class CurrentSlot extends Observable{
 	private String location;
 	private Sheet sheet;
@@ -30,7 +32,7 @@ public class CurrentSlot extends Observable{
 		changed();
 	}
 	
-	public void setValue(String value) throws IOException{
+	public void setValue(String value) throws XLException{
 		sheet.setValue(location, value);
 		changed();
 	}

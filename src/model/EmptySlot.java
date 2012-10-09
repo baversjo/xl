@@ -3,7 +3,7 @@ package model;
 public class EmptySlot implements Slot{
 	     
 	@Override
-	public double value() throws Exception {
+	public double value() {
         return 0;
 	}
 	     

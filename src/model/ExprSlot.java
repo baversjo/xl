@@ -24,7 +24,7 @@ public class ExprSlot implements Slot {
 
 	@Override
 	public String diplayValue() {
-		return String.valueOf(value()); //TODO: padding?
+		return String.valueOf(value());
 	}
 
 }
