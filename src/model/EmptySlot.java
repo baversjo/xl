@@ -9,11 +9,11 @@ public class EmptySlot implements Slot{
         throw new XLException("Must not refer to an empty slot.");
 	}
 	     
-	public String representation(){
+	public String toString(){
         return "";
 	}
 	@Override
 	public String diplayValue() {
-		return representation();
+		return toString();
 	}
 }

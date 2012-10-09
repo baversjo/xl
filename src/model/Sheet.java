@@ -56,7 +56,7 @@ public class Sheet extends Observable implements Environment {
 	}
 	
 	public String representation(String location){
-		return getSlot(location).representation();
+		return getSlot(location).toString();
 	}
 	
 	

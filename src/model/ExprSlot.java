@@ -14,7 +14,7 @@ public class ExprSlot implements Slot {
 		this.env = env;
 	}
 	
-	public String representation(){
+	public String toString(){
 		return expr.toString(precision);
 	}
 
@@ -27,5 +27,5 @@ public class ExprSlot implements Slot {
 	public String diplayValue() {
 		return String.valueOf(value());
 	}
-
+	
 }
