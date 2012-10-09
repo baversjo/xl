@@ -36,16 +36,18 @@ public class Sheet extends Observable implements Environment {
 	
 	public void setValue(String location, String value){
 		Slot slot = sf.build(value, this);
-		Slot old = slots.get(location);
-		slots.put(location, slot);
-		try{
-			slot.value(); // try fetching value. Will cause stack overflow if curcular.
+		if(slot == null){
+			slots.remove(location);
 		}
-		catch(StackOverflowError ex){
-			slots.put(location, old);
-			throw new XLException("Circular error.");
+		else{
+			try{
+				slot.value(); // try fetching value. Will cause stack overflow if curcular.
+			}
+			catch(StackOverflowError ex){
+				throw new XLException("Circular error.");
+			}
+			slots.put(location, slot);
 		}
-		
 		changed();
 	}
 

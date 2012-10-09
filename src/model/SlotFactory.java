@@ -15,6 +15,10 @@ public class SlotFactory {
 	}
 
 	public Slot build(String slotString, Environment env) throws XLException {
+		if(slotString.length() == 0){
+			return null;
+		}
+		
 		Slot slot;
 		if(slotString.charAt(0) == '#'){
 			slot = new TextSlot(slotString.substring(1));
