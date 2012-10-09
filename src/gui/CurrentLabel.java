@@ -10,7 +10,7 @@ public class CurrentLabel extends ColoredLabel implements Observer {
 	private Sheet sheet;
 
     public CurrentLabel(Sheet sheet) {
-        super("", Color.WHITE);
+        super(sheet.currentLocation(), Color.WHITE);
      }
 
 
