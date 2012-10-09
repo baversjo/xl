@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import util.XLException;
+
 import model.CurrentSlot;
 import model.Sheet;
 
@@ -24,9 +26,8 @@ public class EditorController implements KeyListener{
 		if(e.getKeyChar() == KeyEvent.VK_ENTER) { 
 			try {
 				currentSlot.setValue(editor.getText());
-			} catch (IOException e1) {
-				System.exit(4);
-				e1.printStackTrace();
+			} catch (XLException ex) {
+				System.out.println("XLException: " + ex.toString());
 			}
 		}
 	}

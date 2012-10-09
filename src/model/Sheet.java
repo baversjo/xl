@@ -7,6 +7,8 @@ import java.util.Observable;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import util.XLException;
+
 import expr.Environment;
 
 public class Sheet extends Observable implements Environment {
@@ -37,8 +39,18 @@ public class Sheet extends Observable implements Environment {
 		return value;
 	}
 	
-	public void setValue(String location, String value) throws IOException{
-		slots.put(location, sf.build(value, this));
+	public void setValue(String location, String value) throws XLException{
+		Slot slot = sf.build(value, this);
+		Slot old = slots.get(location);
+		slots.put(location, slot);
+		try{
+			slot.value(); // try fetching value. Will cause stack overflow if curcular.
+		}
+		catch(StackOverflowError ex){
+			slots.put(location, old);
+			throw new XLException("Circular error.");
+		}
+		
 		changed();
 	}
 
