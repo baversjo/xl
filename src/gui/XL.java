@@ -73,8 +73,7 @@ public class XL extends JFrame implements Printable {
 
     public static void main(String[] args) {
     	SlotFactory slotFactory = new SlotFactory(new ExprParser()); 
-        HashMap<String, Slot> slots = new HashMap<String,Slot>(); //TODO: refactor
-    	Sheet sheet = new Sheet(slots, slotFactory);
+    	Sheet sheet = new Sheet(slotFactory);
         new XL(new XLList(), new XLCounter(), slotFactory, sheet);
     }
 }

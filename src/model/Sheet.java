@@ -1,6 +1,7 @@
 package model;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
@@ -20,6 +21,10 @@ public class Sheet extends Observable implements Environment {
 		this.location = "A1";
 		updateSlot();
 		changed();
+	}
+	
+	public Sheet(SlotFactory sf){
+		this(new HashMap<String,Slot>(),sf);
 	}
 
 	@Override
