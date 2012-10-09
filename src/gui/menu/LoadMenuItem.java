@@ -28,7 +28,12 @@ class LoadMenuItem extends OpenMenuItem {
     }
 
     protected void action(String path) throws FileNotFoundException {
-    	XLBufferedReader br = new XLBufferedReader(path);
+    	XLBufferedReader br = null;
+    	try{
+    	br = new XLBufferedReader(path);
+    	}catch (Exception e){
+    		super.statusLabel.setText("Could not load file! (" + e.getMessage() + ")");
+    	}
     	HashMap<String, Slot> slots = new HashMap<String,Slot>();
     	Sheet sheet = new Sheet(slots, slotFactory);
     	br.load(slots, slotFactory, sheet);
