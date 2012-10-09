@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import controller.EditorController;
 
+import model.CurrentSlot;
 import model.Sheet;
 import model.Slot;
 import model.SlotFactory;
@@ -40,12 +41,13 @@ public class XL extends JFrame implements Printable {
         this.counter = counter;
         this.slotFactory = slotfactory;
         statusLabel = new StatusLabel();
+        CurrentSlot currentSlot = new CurrentSlot(sheet);
         xlList.add(this);
         counter.increment();
-        JPanel statusPanel = new StatusPanel(statusLabel, sheet);
-        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet);
-        Editor editor = new Editor(sheet);
-        EditorController editorcontroller = new EditorController(editor, sheet);
+        JPanel statusPanel = new StatusPanel(statusLabel, currentSlot);
+        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet, currentSlot);
+        Editor editor = new Editor(currentSlot);
+        EditorController editorcontroller = new EditorController(editor, currentSlot);
         editor.addKeyListener(editorcontroller);
         add(NORTH, statusPanel);
         add(CENTER, editor);

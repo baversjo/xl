@@ -6,24 +6,24 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import model.CurrentSlot;
 import model.Sheet;
 
 public class EditorController implements KeyListener{
 	private Editor editor;
-	private Sheet sheet;
+	private CurrentSlot currentSlot;
 	
-	public EditorController(Editor editor, Sheet sheet){
+	public EditorController(Editor editor, CurrentSlot currentSlot){
 		this.editor = editor;
-		this.sheet = sheet;
+		this.currentSlot = currentSlot;
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyChar() == KeyEvent.VK_ENTER) { 
-			String text = editor.getText();
 			try {
-				sheet.setValue(text);
+				currentSlot.setValue(editor.getText());
 			} catch (IOException e1) {
 				System.exit(4);
 				e1.printStackTrace();

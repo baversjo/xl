@@ -7,7 +7,7 @@ public class TextSlot implements Slot {
 		this.text = text;
 	}
 	
-	public String toString(){
+	public String representation(){
 		return "#" + text.toString();
 	}
 

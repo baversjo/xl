@@ -13,7 +13,7 @@ public class ExprSlot implements Slot {
 		this.env = env;
 	}
 	
-	public String toString(){
+	public String representation(){
 		return expr.toString(precision);
 	}
 
