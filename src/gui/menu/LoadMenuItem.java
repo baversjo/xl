@@ -3,44 +3,44 @@ package gui.menu;
 import gui.StatusLabel;
 import gui.XL;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 
+import util.XLException;
+
 import model.CurrentSlot;
 import model.Sheet;
-import model.Slot;
-import model.SlotFactory;
 import model.XLBufferedReader;
 
 class LoadMenuItem extends OpenMenuItem {
- 
-    private SlotFactory slotFactory;
+
     private Sheet sheet;
 	private CurrentSlot currentSlot;
 
-	public LoadMenuItem(XL xl, StatusLabel statusLabel, SlotFactory slotFactory, Sheet sheet, CurrentSlot currentSlot) {
+	public LoadMenuItem(XL xl, StatusLabel statusLabel, Sheet sheet, CurrentSlot currentSlot) {
         super(xl, statusLabel, "Load");
         this.sheet = sheet;
-        this.slotFactory = slotFactory;
         this.currentSlot = currentSlot;
     }
 
     protected void action(String path) throws FileNotFoundException {
     	XLBufferedReader br = null;
     	try{
-    	br = new XLBufferedReader(path);
-    	}catch (Exception e){
-    		super.statusLabel.setText("Could not load file! (" + e.getMessage() + ")");
+    		br = new XLBufferedReader(path);
+    	}catch (FileNotFoundException ex){
+    		super.statusLabel.setText(ex.getMessage());
     	}
-    	HashMap<String, Slot> slots = new HashMap<String,Slot>();
-    	br.load(slots, slotFactory, sheet);
-    	sheet.changed(slots);
-    	currentSlot.reset();
+    	sheet.reset();
+    	try{
+    		br.load(sheet);
+    		sheet.changed();
+    		currentSlot.reset();
+    		super.statusLabel.setText("File loaded.");
+    	}catch(XLException ex){
+    		super.statusLabel.setText("Could not load file: " + ex.getMessage());
+    	}
+    	
 
     }
 

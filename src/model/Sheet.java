@@ -10,21 +10,19 @@ import java.util.Map.Entry;
 import util.XLException;
 
 import expr.Environment;
+import expr.Expr;
+import expr.ExprParser;
 
 public class Sheet extends Observable implements Environment {
 	private Map<String, Slot> slots;
 	private Slot emptySlot;
-	private SlotFactory sf;
+	private ExprParser exprParser;
 	
-	public Sheet(Map<String, Slot> slots, SlotFactory sf){
-		this.slots = slots;
-		this.sf = sf;
+	public Sheet(ExprParser exprParser){
+		reset();
 		this.emptySlot = new EmptySlot();
+		this.exprParser = exprParser;
 		changed();
-	}
-	
-	public Sheet(SlotFactory sf){
-		this(new HashMap<String,Slot>(),sf);
 	}
 
 	@Override
@@ -34,21 +32,48 @@ public class Sheet extends Observable implements Environment {
 		return value;
 	}
 	
-	public void setValue(String location, String value){
-		Slot slot = sf.build(value, this);
-		if(slot == null){
+	public void setValue(String location, String value, boolean batch){
+		if(value.length() == 0){
 			slots.remove(location);
-		}
-		else{
-			try{
-				slot.value(); // try fetching value. Will cause stack overflow if curcular.
-			}
-			catch(StackOverflowError ex){
-				throw new XLException("Circular error.");
+		}else{
+			Slot slot;
+			if(value.charAt(0) == '#'){
+				slot = new TextSlot(value.substring(1));
+			}else{
+				Expr expr;
+				try{
+					expr = exprParser.build(value);
+				}catch(IOException ex){
+					throw new XLException("Internal error #12");
+				}
+				ErrorSlot test = new ErrorSlot(expr, this);
+				
+				Slot old = slots.get(location);
+				slots.put(location, test);
+				try{
+					test.check();
+				}
+				catch(XLEmptySlotException ex){
+					if(!batch){
+						throw ex;
+					}
+				}
+				catch(XLException ex){
+					slots.put(location, old);
+					throw ex;
+				}
+				slot = new ExprSlot(expr, this);
+				
 			}
 			slots.put(location, slot);
 		}
-		changed();
+		if(!batch){
+			changed();
+		}
+	}
+	
+	public void setValue(String location, String value){
+		setValue(location, value, false);
 	}
 
 	public String displayValue(String location){
@@ -69,8 +94,8 @@ public class Sheet extends Observable implements Environment {
 		notifyObservers();
 	}
 	
-	public void changed(Map<String, Slot> slots){
-		this.slots = slots;
+	public void reset(){
+		this.slots = new HashMap<String, Slot>();
 		changed();
 	}
 		

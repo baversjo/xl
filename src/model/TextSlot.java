@@ -9,7 +9,7 @@ public class TextSlot implements Slot {
 		this.text = text;
 	}
 	
-	public String representation(){
+	public String toString(){
 		return "#" + text.toString();
 	}
 

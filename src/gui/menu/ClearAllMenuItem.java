@@ -20,7 +20,6 @@ class ClearAllMenuItem extends JMenuItem implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-    	Map<String, Slot> slots = new HashMap<String, Slot>();
-        sheet.changed(slots);
+        sheet.reset();
     }
 }

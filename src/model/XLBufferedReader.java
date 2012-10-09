@@ -12,12 +12,12 @@ public class XLBufferedReader extends BufferedReader {
         super(new FileReader(name));
     }
 
-    public void load(Map<String, Slot> map, SlotFactory slotFactory, Sheet sheet) {
+    public void load(Sheet sheet) {
         try {
             while (ready()) {
                 String string = readLine();
                 int i = string.indexOf('=');
-                map.put(string.substring(0, i),slotFactory.build(string.substring(i+1),sheet));
+                sheet.setValue(string.substring(0, i), string.substring(i+1),true);
             }
         } catch (Exception e) {
             throw new XLException(e.getMessage());

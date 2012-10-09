@@ -1,28 +1,26 @@
 package gui.menu;
 
+import expr.ExprParser;
 import gui.XL;
-import gui.XLCounter;
-import gui.XLList;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import model.Sheet;
-import model.SlotFactory;
 
 class NewMenuItem extends JMenuItem implements ActionListener {
     private XL xl;
-	private SlotFactory slotFactory;
+	private ExprParser parser;
 
-    public NewMenuItem(XL xl, SlotFactory slotfactory) {
+    public NewMenuItem(XL xl, ExprParser parser) {
         super("New");
-        this.slotFactory = slotfactory;
+        this.parser = parser;
         this.xl = xl;
         addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent event) {
-    	new XL(xl, new Sheet(slotFactory));
+    	new XL(xl, new Sheet(parser));
     }
 }

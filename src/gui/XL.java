@@ -18,7 +18,6 @@ import controller.EditorController;
 
 import model.CurrentSlot;
 import model.Sheet;
-import model.SlotFactory;
 
 public class XL extends JFrame implements Printable {
     private static final int ROWS = 10, COLUMNS = 8;
@@ -26,17 +25,17 @@ public class XL extends JFrame implements Printable {
     private StatusLabel statusLabel;
     private XLList xlList;
 	private Sheet sheet;
-	private SlotFactory slotFactory;
+	private ExprParser parser;
 
     public XL(XL oldXL, Sheet sheet) {
-        this(oldXL.xlList, oldXL.counter, oldXL.slotFactory, sheet);
+        this(oldXL.xlList, oldXL.counter, oldXL.parser, sheet);
     }
 
-    public XL(XLList xlList, XLCounter counter, SlotFactory slotfactory, Sheet sheet) {
+    public XL(XLList xlList, XLCounter counter, ExprParser parser, Sheet sheet) {
         super("Untitled-" + counter);
         this.xlList = xlList;
         this.counter = counter;
-        this.slotFactory = slotfactory;
+        this.parser = parser;
         statusLabel = new StatusLabel();
         CurrentSlot currentSlot = new CurrentSlot(sheet);
         xlList.add(this);
@@ -49,7 +48,7 @@ public class XL extends JFrame implements Printable {
         add(NORTH, statusPanel);
         add(CENTER, editor);
         add(SOUTH, sheetPanel);
-        setJMenuBar(new XLMenuBar(this, xlList, statusLabel, slotFactory, sheet, currentSlot));
+        setJMenuBar(new XLMenuBar(this, xlList, statusLabel, sheet, currentSlot, parser));
         pack();
         setDefaultCloseOperation(XL.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -72,8 +71,8 @@ public class XL extends JFrame implements Printable {
     }
 
     public static void main(String[] args) {
-    	SlotFactory slotFactory = new SlotFactory(new ExprParser()); 
-    	Sheet sheet = new Sheet(slotFactory);
-        new XL(new XLList(), new XLCounter(), slotFactory, sheet);
+    	ExprParser parser = new ExprParser(); 
+    	Sheet sheet = new Sheet(parser);
+        new XL(new XLList(), new XLCounter(), parser, sheet);
     }
 }

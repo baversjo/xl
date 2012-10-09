@@ -1,6 +1,5 @@
 package model;
 
-import util.XLException;
 import expr.Environment;
 import expr.Expr;
 
