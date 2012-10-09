@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 
+import model.CurrentSlot;
 import model.Sheet;
 import model.Slot;
 import model.SlotFactory;
@@ -20,11 +21,13 @@ class LoadMenuItem extends OpenMenuItem {
  
     private SlotFactory slotFactory;
     private Sheet sheet;
+	private CurrentSlot currentSlot;
 
-	public LoadMenuItem(XL xl, StatusLabel statusLabel, SlotFactory slotFactory, Sheet sheet) {
+	public LoadMenuItem(XL xl, StatusLabel statusLabel, SlotFactory slotFactory, Sheet sheet, CurrentSlot currentSlot) {
         super(xl, statusLabel, "Load");
         this.sheet = sheet;
         this.slotFactory = slotFactory;
+        this.currentSlot = currentSlot;
     }
 
     protected void action(String path) throws FileNotFoundException {
@@ -35,9 +38,10 @@ class LoadMenuItem extends OpenMenuItem {
     		super.statusLabel.setText("Could not load file! (" + e.getMessage() + ")");
     	}
     	HashMap<String, Slot> slots = new HashMap<String,Slot>();
-    	Sheet sheet = new Sheet(slots, slotFactory);
     	br.load(slots, slotFactory, sheet);
-    	new XL(xl, sheet);
+    	sheet.changed(slots);
+    	currentSlot.reset();
+
     }
 
     protected int openDialog(JFileChooser fileChooser) {

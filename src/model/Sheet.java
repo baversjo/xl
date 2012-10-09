@@ -59,6 +59,11 @@ public class Sheet extends Observable implements Environment {
 		setChanged();
 		notifyObservers();
 	}
+	
+	public void changed(Map<String, Slot> slots){
+		this.slots = slots;
+		changed();
+	}
 		
 	private Slot getSlot(String location){
 		Slot slot = slots.get(location);

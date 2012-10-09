@@ -8,11 +8,14 @@ public class CurrentSlot extends Observable{
 	private Sheet sheet;
 	
 	public CurrentSlot(Sheet sheet){
-		this.location = "A1";
+		reset();
 		this.sheet = sheet;
 		//TODO: sheet.changed() here instead of in XL()?
 	}
 	
+	public void reset(){
+		set("A1");
+	}
 	
 	public String displayValue(){
 		return sheet.displayValue(location);
