@@ -35,7 +35,7 @@ public class CurrentSlot extends Observable{
 		changed();
 	}
 	
-	public void setValue(String value) throws XLException{
+	public void setValue(String value){
 		sheet.setValue(location, value);
 		changed();
 	}

@@ -1,5 +1,6 @@
 package model;
 
+import util.XLException;
 import expr.Environment;
 import expr.Expr;
 
@@ -18,7 +19,7 @@ public class ExprSlot implements Slot {
 	}
 
 	@Override
-	public double value() {
+	public double value(){
 		return expr.value(this.env);
 	}
 

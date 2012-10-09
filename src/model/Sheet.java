@@ -30,16 +30,11 @@ public class Sheet extends Observable implements Environment {
 	@Override
 	public double value(String name) {
 		double value = 0;
-		try {
-			value = getSlot(name).value();
-		} catch (Exception e) {
-			e.printStackTrace(); //TODO: correct error handling.
-			System.exit(1);
-		}
+		value = getSlot(name).value();
 		return value;
 	}
 	
-	public void setValue(String location, String value) throws XLException{
+	public void setValue(String location, String value){
 		Slot slot = sf.build(value, this);
 		Slot old = slots.get(location);
 		slots.put(location, slot);

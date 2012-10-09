@@ -14,8 +14,8 @@ public class TextSlot implements Slot {
 	}
 
 	@Override
-	public double value() {
-		throw new XLException("Trying to reference value of text slot.");
+	public double value(){
+		return 0.0;
 	}
 
 	@Override
