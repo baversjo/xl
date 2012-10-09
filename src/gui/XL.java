@@ -44,7 +44,7 @@ public class XL extends JFrame implements Printable {
         JPanel statusPanel = new StatusPanel(statusLabel, currentSlot);
         JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet, currentSlot);
         Editor editor = new Editor(currentSlot);
-        EditorController editorcontroller = new EditorController(editor, currentSlot);
+        EditorController editorcontroller = new EditorController(editor, currentSlot, statusLabel);
         editor.addKeyListener(editorcontroller);
         add(NORTH, statusPanel);
         add(CENTER, editor);

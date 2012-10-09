@@ -4,13 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
+import model.CurrentSlot;
+
 class ClearMenuItem extends JMenuItem implements ActionListener {
-    public ClearMenuItem() {
+	CurrentSlot currentSlot;
+    public ClearMenuItem(CurrentSlot currentSlot) {
         super("Clear");
+        this.currentSlot = currentSlot;
         addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
-        // TODO
+        currentSlot.setValue("");
     }
 }

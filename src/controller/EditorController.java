@@ -1,6 +1,7 @@
 package controller;
 
 import gui.Editor;
+import gui.StatusLabel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,10 +15,12 @@ import model.Sheet;
 public class EditorController implements KeyListener{
 	private Editor editor;
 	private CurrentSlot currentSlot;
+	private StatusLabel statusLabel;
 	
-	public EditorController(Editor editor, CurrentSlot currentSlot){
+	public EditorController(Editor editor, CurrentSlot currentSlot, StatusLabel statusLabel){
 		this.editor = editor;
 		this.currentSlot = currentSlot;
+		this.statusLabel = statusLabel;
 		
 	}
 
@@ -27,7 +30,7 @@ public class EditorController implements KeyListener{
 			try {
 				currentSlot.setValue(editor.getText());
 			} catch (XLException ex) {
-				System.out.println("XLException: " + ex.toString());
+				statusLabel.update(ex.getMessage());
 			}
 		}
 	}
