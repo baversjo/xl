@@ -14,17 +14,19 @@ import controller.SheetController;
 public class SlotLabels extends GridPanel{
     private List<SlotLabel> labelList;
     private int cols;
+	private StatusLabel statusLabel;
 
-    public SlotLabels(int rows, int cols, Sheet sheet, CurrentSlot currentSlot) {
+    public SlotLabels(int rows, int cols, Sheet sheet, CurrentSlot currentSlot, StatusLabel statusLabel) {
         super(rows + 1, cols);
         this.cols = cols;
+        this.statusLabel = statusLabel;
         labelList = new LinkedList<SlotLabel>();
         
         for (char ch = 'A'; ch < 'A' + cols; ch++) {
             add(new ColoredLabel(Character.toString(ch), Color.LIGHT_GRAY,
                     SwingConstants.CENTER));
         }
-        SheetController sheetcont = new SheetController(sheet,this, currentSlot);
+        SheetController sheetcont = new SheetController(sheet,this, currentSlot, statusLabel);
         for (int row = 1; row <= rows; row++) {
             for (int col = 0; col < cols; col++) {
             	String position = locationString(row,col);

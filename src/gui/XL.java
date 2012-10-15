@@ -41,7 +41,7 @@ public class XL extends JFrame implements Printable {
         xlList.add(this);
         counter.increment();
         JPanel statusPanel = new StatusPanel(statusLabel, currentSlot);
-        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet, currentSlot);
+        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, sheet, currentSlot, statusLabel);
         Editor editor = new Editor(currentSlot);
         EditorController editorcontroller = new EditorController(editor, currentSlot, statusLabel);
         editor.addKeyListener(editorcontroller);
