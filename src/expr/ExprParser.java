@@ -53,7 +53,7 @@ public class ExprParser {
      */
     public Expr build(Reader reader) throws IOException {
         tokenizer = new StreamTokenizer(reader);
-        // tokenizer.ordinaryChar('-');
+        tokenizer.ordinaryChar('-');
         tokenizer.ordinaryChar('/');
         token = tokenizer.nextToken();
         Expr e = expr();

@@ -15,12 +15,26 @@ import expr.ExprParser;
 
 public class Sheet extends Observable implements Environment {
 	private Map<String, Slot> slots;
-	private Slot emptySlot;
+	
 	private ExprParser exprParser;
+	
+	private static Slot emptySlot = new Slot(){
+	     
+		public double value(){
+	       throw new XLEmptySlotException("Must not refer to an empty slot.");
+		}
+		     
+		public String toString(){
+	       return "";
+		}
+
+		public String diplayValue() {
+			return toString();
+		}
+	};
 	
 	public Sheet(ExprParser exprParser){
 		reset();
-		this.emptySlot = new EmptySlot();
 		this.exprParser = exprParser;
 		changed();
 	}
@@ -96,7 +110,13 @@ public class Sheet extends Observable implements Environment {
 	
 	public void reset(){
 		this.slots = new HashMap<String, Slot>();
-		changed();
+
+	}
+	
+	public void load(Set<Entry<String, Slot>> set) {
+		for(Entry<String, Slot> entry: set){
+			slots.put(entry.getKey(), entry.getValue());
+		}
 	}
 		
 	private Slot getSlot(String location){
@@ -106,4 +126,5 @@ public class Sheet extends Observable implements Environment {
 		}
 		return slot;
 	}
+
 }
