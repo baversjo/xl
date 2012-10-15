@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
-
 import model.CurrentSlot;
 import model.Sheet;
 
@@ -22,21 +21,31 @@ public class SlotLabel extends ColoredLabel implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		update();
+		Color c = Color.white;
+		if(arg0 instanceof Sheet){
+			setText(sheet.displayValue(position));
+			if(currentSlot.location().equals(position)){
+				c = Color.yellow;
+			}
+		}else {
+			if(currentSlot.location().equals(position)){
+				c = Color.yellow;
+			}
+		}
+		setBackground(c);
+		}
 		
-	}
+	
+	
+	
+		
+	
 	
 	public String toString(){
 		return position;
 	}
 	
-	private void update(){
-		setText(sheet.displayValue(position));
-		Color c = Color.white;
-		if(currentSlot.location().equals(position)){
-			c = Color.yellow;
-		}
-		setBackground(c);
-	}
-    
+//	private void update(){
+//	
+//	}
 }
