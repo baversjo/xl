@@ -47,8 +47,15 @@ public class Sheet extends Observable implements Environment {
 	}
 	
 	public void setValue(String location, String value, boolean batch){
+		//(value.length() == 0
 		if(value.length() == 0){
-			slots.remove(location);
+			Slot old = slots.remove(location);
+			try{
+				changed();
+			}catch(XLEmptySlotException ex){
+				slots.put(location, old);
+				throw ex;
+			}
 		}else{
 			Slot slot;
 			if(value.charAt(0) == '#'){
@@ -73,8 +80,10 @@ public class Sheet extends Observable implements Environment {
 					}
 				}
 				catch(XLException ex){
-					slots.put(location, old);
 					throw ex;
+				}
+				finally{
+					slots.put(location, old);
 				}
 				slot = new ExprSlot(expr, this);
 				

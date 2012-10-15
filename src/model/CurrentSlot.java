@@ -1,6 +1,5 @@
 package model;
 
-import java.io.IOException;
 import java.util.Observable;
 
 import util.XLException;
@@ -36,8 +35,15 @@ public class CurrentSlot extends Observable{
 	}
 	
 	public void setValue(String value){
-		sheet.setValue(location, value);
-		changed();
+		try{
+			sheet.setValue(location, value);
+			
+		}catch(XLException ex){
+			throw ex;
+		}
+		finally{
+			changed();
+		}
 	}
 	
 	
