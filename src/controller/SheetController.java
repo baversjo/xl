@@ -7,17 +7,13 @@ import gui.StatusLabel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-
 import model.CurrentSlot;
-import model.Sheet;
 
 public class SheetController implements MouseListener{
-	private Sheet sheet;
 	private CurrentSlot currentSlot;
 	private StatusLabel statusLabel;
 
-	public SheetController(Sheet sheet, SlotLabels view, CurrentSlot currentSlot, StatusLabel statusLabel){
-		this.sheet = sheet;
+	public SheetController(SlotLabels view, CurrentSlot currentSlot, StatusLabel statusLabel){
 		this.currentSlot = currentSlot;
 		this.statusLabel = statusLabel;
 	}

@@ -24,7 +24,6 @@ public class XL extends JFrame implements Printable {
     private XLCounter counter;
     private StatusLabel statusLabel;
     private XLList xlList;
-	private Sheet sheet;
 	private ExprParser parser;
 
     public XL(XL oldXL, Sheet sheet) {

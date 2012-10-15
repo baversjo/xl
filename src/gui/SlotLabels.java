@@ -26,7 +26,7 @@ public class SlotLabels extends GridPanel{
             add(new ColoredLabel(Character.toString(ch), Color.LIGHT_GRAY,
                     SwingConstants.CENTER));
         }
-        SheetController sheetcont = new SheetController(sheet,this, currentSlot, statusLabel);
+        SheetController sheetcont = new SheetController(this, currentSlot, statusLabel);
         for (int row = 1; row <= rows; row++) {
             for (int col = 0; col < cols; col++) {
             	String position = locationString(row,col);

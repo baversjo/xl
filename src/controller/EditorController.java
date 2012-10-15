@@ -5,12 +5,10 @@ import gui.StatusLabel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 
 import util.XLException;
 
 import model.CurrentSlot;
-import model.Sheet;
 
 public class EditorController implements KeyListener{
 	private Editor editor;

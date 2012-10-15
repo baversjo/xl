@@ -6,9 +6,7 @@ import java.util.Observer;
 
 import javax.swing.JTextField;
 
-
 import model.CurrentSlot;
-import model.Sheet;
 
 public class Editor extends JTextField implements Observer{
 	private CurrentSlot currentSlot;

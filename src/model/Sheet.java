@@ -47,7 +47,6 @@ public class Sheet extends Observable implements Environment {
 	}
 	
 	public void setValue(String location, String value, boolean batch){
-		//(value.length() == 0
 		if(value.length() == 0){
 			Slot old = slots.remove(location);
 			try{
