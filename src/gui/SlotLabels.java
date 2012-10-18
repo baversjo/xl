@@ -30,9 +30,10 @@ public class SlotLabels extends GridPanel{
         for (int row = 1; row <= rows; row++) {
             for (int col = 0; col < cols; col++) {
             	String position = locationString(row,col);
-                SlotLabel label = new SlotLabel(position, sheet , currentSlot);
+                SlotLabel label = new SlotLabel(position);
                 label.addMouseListener(sheetcont);
                 sheet.addObserver(label);
+                currentSlot.addObserver(label);
                 add(label);
                 labelList.add(label);
             }
