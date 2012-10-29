@@ -11,16 +11,14 @@ import model.Sheet;
 
 class NewMenuItem extends JMenuItem implements ActionListener {
     private XL xl;
-	private ExprParser parser;
 
-    public NewMenuItem(XL xl, ExprParser parser) {
+    public NewMenuItem(XL xl) {
         super("New");
-        this.parser = parser;
         this.xl = xl;
         addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent event) {
-    	new XL(xl, new Sheet(parser));
+    	new XL(xl, new Sheet());
     }
 }

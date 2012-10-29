@@ -1,16 +1,23 @@
 package model;
 
+import java.io.IOException;
+
+import util.XLException;
+
 import expr.Environment;
 import expr.Expr;
+import expr.ExprParser;
 
 public class ExprSlot implements Slot {
 	public static int precision = 2;
 	private Expr expr;
-	private Environment env;
 	
-	public ExprSlot(Expr expr, Environment env){
-		this.expr = expr;
-		this.env = env;
+	public ExprSlot(String expression, ExprParser exprParser){
+		try {
+			this.expr =  exprParser.build(expression);
+		} catch (IOException e) {
+			throw new XLException(e.getMessage());
+		}
 	}
 	
 	public String toString(){
@@ -18,13 +25,13 @@ public class ExprSlot implements Slot {
 	}
 
 	@Override
-	public double value(){
-		return expr.value(this.env);
+	public double value(Environment env){
+		return expr.value(env);
 	}
 
 	@Override
-	public String diplayValue() {
-		return String.valueOf(value());
+	public String diplayValue(Environment env) {
+		return String.valueOf(value(env));
 	}
 	
 }

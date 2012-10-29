@@ -1,5 +1,7 @@
 package model;
 
+import expr.Environment;
+
 
 public class TextSlot implements Slot {
 	private String text;
@@ -13,12 +15,12 @@ public class TextSlot implements Slot {
 	}
 
 	@Override
-	public double value(){
+	public double value(Environment env){
 		return 0.0;
 	}
 
 	@Override
-	public String diplayValue() {
+	public String diplayValue(Environment env) {
 		return text;
 	}
 }

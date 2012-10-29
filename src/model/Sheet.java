@@ -14,13 +14,14 @@ import expr.Expr;
 import expr.ExprParser;
 
 public class Sheet extends Observable implements Environment {
+	
 	private Map<String, Slot> slots;
 	
-	private ExprParser exprParser;
+	private static SlotFactory slotFactory = new SlotFactory();
 	
 	private static Slot emptySlot = new Slot(){
 	     
-		public double value(){
+		public double value(Environment env){
 	       throw new XLEmptySlotException("Must not refer to an empty slot.");
 		}
 		     
@@ -28,25 +29,42 @@ public class Sheet extends Observable implements Environment {
 	       return "";
 		}
 
-		public String diplayValue() {
+		public String diplayValue(Environment env) {
 			return toString();
 		}
 	};
 	
-	public Sheet(ExprParser exprParser){
+	public Sheet(){
 		reset();
-		this.exprParser = exprParser;
 		changed();
 	}
 
 	@Override
 	public double value(String name) {
 		double value = 0;
-		value = getSlot(name).value();
+		value = getSlot(name).value(this);
 		return value;
 	}
 	
 	public void setValue(String location, String value, boolean batch){
+		Slot old = slots.remove(location);
+		try{
+			Slot newSlot = slotFactory.build(value);
+			if(newSlot != null){
+				ErrorSlot errorSlot = new ErrorSlot();
+				slots.put(location, errorSlot);
+				newSlot.value(this);
+				slots.put(location, newSlot);
+			}
+			if(!batch){
+				recompute();
+			}
+		}catch(XLException ex){ //TODO: throw XLEmptySlotException if !batch
+								//TODO: do we need changed?
+			slots.put(location,old);
+			throw ex;
+		}
+		/*
 		if(value.length() == 0){
 			Slot old = slots.remove(location);
 			try{
@@ -66,12 +84,12 @@ public class Sheet extends Observable implements Environment {
 				}catch(IOException ex){
 					throw new XLException("Internal error #12");
 				}
-				ErrorSlot test = new ErrorSlot(expr, this);
+				ErrorSlot test = new ErrorSlot();
 				
 				Slot old = slots.get(location);
 				slots.put(location, test);
 				try{
-					test.check();
+					//slot.value()  test.check();
 				}
 				catch(XLEmptySlotException ex){
 					if(!batch){
@@ -92,6 +110,13 @@ public class Sheet extends Observable implements Environment {
 		if(!batch){
 			changed();
 		}
+		*/
+	}
+	
+	private void recompute(){
+		for(Entry<String, Slot> entry:entrySet()){
+			entry.getValue().value(this);
+		}
 	}
 	
 	public void setValue(String location, String value){
@@ -99,7 +124,7 @@ public class Sheet extends Observable implements Environment {
 	}
 
 	public String displayValue(String location){
-		return getSlot(location).diplayValue();
+		return getSlot(location).diplayValue(this);
 	}
 	
 	public String representation(String location){
